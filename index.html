@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>INFORMATIKA FUN</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    
+    <style>
+        /* Mengunci halaman agar tepat 1 layar dan tidak bisa di-scroll */
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden; 
+            background-color: #4A7298; /* Solid Denim Blue Lembut & Pekat */
+            font-family: 'Quicksand', sans-serif;
+            display: flex;
+            flex-direction: column;
+            color: #ffffff;
+        }
+
+        /* Animasi Mengambang untuk Elemen Dekoratif */
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(2deg); }
+        }
+        @keyframes float-reverse {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(10px) rotate(-2deg); }
+        }
+        .float-fast { animation: float 4s ease-in-out infinite; }
+        .float-slow { animation: float-reverse 6s ease-in-out infinite; }
+
+        /* Gaya Kartu Bento (HD, Solid, Tanpa Blur) */
+        .bento-card {
+            background-color: #1E3A5F; /* Solid Navy Blue */
+            border: 3px solid #88D4AB; /* Highlight Hijau Lembut */
+            border-radius: 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            text-decoration: none;
+            color: white;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            padding: clamp(10px, 2vh, 24px);
+        }
+
+        /* Interaksi Hover & Click */
+        .bento-card:hover {
+            transform: scale(1.04) translateY(-4px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+            border-color: #A3E4C2;
+            background-color: #23436b;
+        }
+        .bento-card:active {
+            transform: scale(0.96);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+        }
+        
+        /* Animasi Ikon saat di Hover */
+        .bento-card:hover .card-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+        .card-icon {
+            transition: transform 0.3s ease;
+            color: #88D4AB; /* Hijau lembut */
+        }
+
+        /* Efek Ripple saat diklik */
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.4);
+            transform: scale(0);
+            animation: ripple-anim 0.4s linear;
+            pointer-events: none;
+        }
+        @keyframes ripple-anim {
+            to { transform: scale(4); opacity: 0; }
+        }
+
+        /* Tipografi Dinamis yang Diperbarui */
+        /* Ukuran judul dibuat jauh lebih besar untuk mendominasi layar atas */
+        .title-text { font-size: clamp(40px, 8vh, 90px); line-height: 1.1; margin-bottom: 8px;}
+        .subtitle-text { font-size: clamp(14px, 2.5vh, 22px); }
+        
+        /* Teks kartu diperbesar agar mendominasi tombol dengan letter-spacing agar elegan */
+        .card-title { font-size: clamp(18px, 3.5vh, 32px); letter-spacing: 1px; line-height: 1.2; }
+        .card-icon-size { font-size: clamp(36px, 6vh, 64px); margin-bottom: clamp(4px, 1vh, 12px); }
+    </style>
+</head>
+<body>
+
+    <!-- Latar Belakang Dekoratif -->
+    <div class="absolute inset-0 pointer-events-none z-0 overflow-hidden opacity-30 text-white">
+        <i class="ph ph-brackets-curly float-fast absolute top-[15%] left-[10%] text-6xl"></i>
+        <i class="ph ph-laptop float-slow absolute top-[20%] right-[15%] text-7xl"></i>
+        <i class="ph ph-cloud float-fast absolute bottom-[30%] left-[15%] text-5xl"></i>
+        <i class="ph ph-database float-slow absolute bottom-[20%] right-[10%] text-6xl"></i>
+        <i class="ph ph-code float-fast absolute top-[40%] right-[25%] text-4xl"></i>
+        <i class="ph ph-cpu float-slow absolute bottom-[40%] left-[25%] text-5xl"></i>
+    </div>
+
+    <!-- Bagian Utama -->
+    <div class="relative z-10 flex flex-col h-full w-full max-w-[1200px] mx-auto px-4">
+        
+        <!-- HEADER (Judul Utama mendominasi) -->
+        <header class="flex flex-col items-center justify-center text-center shrink-0 pt-6 pb-4 sm:pt-10 sm:pb-6">
+            <h1 class="title-text font-extrabold text-white tracking-wide drop-shadow-lg">
+                INFORMATIKA FUN!
+            </h1>
+            <p class="subtitle-text text-gray-200 font-semibold max-w-3xl px-2">
+                Website Pembelajaran Informatika Yang Interaktif dan Menyenangkan
+            </p>
+        </header>
+
+        <!-- AREA TOMBOL -->
+        <main class="flex-1 w-full flex items-center justify-center">
+            <nav class="grid grid-cols-2 gap-4 sm:gap-8 w-full max-w-[900px] h-[50vh] sm:h-[45vh]">
+                
+                <a href="#" class="bento-card" onclick="createRipple(event)">
+                    <i class="ph-fill ph-calendar-check card-icon card-icon-size"></i>
+                    <span class="card-title font-bold">DAFTAR HADIR</span>
+                </a>
+
+                <a href="#" class="bento-card" onclick="createRipple(event)">
+                    <i class="ph-fill ph-chart-bar card-icon card-icon-size"></i>
+                    <span class="card-title font-bold">DAFTAR NILAI</span>
+                </a>
+
+                <a href="#" class="bento-card" onclick="createRipple(event)">
+                    <i class="ph-fill ph-book-bookmark card-icon card-icon-size"></i>
+                    <span class="card-title font-bold">JURNAL<br>PEMBELAJARAN</span>
+                </a>
+
+                <a href="#" class="bento-card" onclick="createRipple(event)">
+                    <i class="ph-fill ph-monitor-play card-icon card-icon-size"></i>
+                    <span class="card-title font-bold">MATERI</span>
+                </a>
+
+            </nav>
+        </main>
+
+        <!-- FOOTER -->
+        <footer class="shrink-0 text-center py-2 sm:py-3 z-10">
+            <!-- Teks diperbarui agar tampil persis seperti permintaan dan kelas 'uppercase' dihapus agar format huruf kecil/besar dipertahankan -->
+            <p class="text-[10px] sm:text-xs font-bold text-gray-300 opacity-80 tracking-wider">
+                INFORMATIKA FUN @ By: Riski Amalia, S.Pd
+            </p>
+        </footer>
+    </div>
+
+    <!-- Script untuk Efek Ripple pada Tombol -->
+    <script>
+        function createRipple(event) {
+            const button = event.currentTarget;
+            
+            const oldRipple = button.querySelector('.ripple');
+            if (oldRipple) {
+                oldRipple.remove();
+            }
+
+            const circle = document.createElement("span");
+            const diameter = Math.max(button.clientWidth, button.clientHeight);
+            const radius = diameter / 2;
+
+            const rect = button.getBoundingClientRect();
+            
+            const clientX = event.touches ? event.touches[0].clientX : event.clientX;
+            const clientY = event.touches ? event.touches[0].clientY : event.clientY;
+
+            circle.style.width = circle.style.height = `${diameter}px`;
+            circle.style.left = `${clientX - rect.left - radius}px`;
+            circle.style.top = `${clientY - rect.top - radius}px`;
+            circle.classList.add("ripple");
+
+            button.appendChild(circle);
+
+            setTimeout(() => {
+                // window.location.href = button.getAttribute('href');
+            }, 300);
+        }
+    </script>
+</body>
+</html>
